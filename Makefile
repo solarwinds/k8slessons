@@ -14,4 +14,4 @@ run_compose:
 	docker-compose up --build
 
 docker_build:
-	docker build -t $(app_name):$(latest_git_sha) .
+	docker build -t $(app_name) .
