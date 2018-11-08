@@ -11,7 +11,7 @@ import (
 
 func main()  {
 	port := ":7575"
-	storage := NewRedisPersister("localhost:6379")
+	storage := NewRedisPersister("redis:6379")
 
 	http.Handle("/store", storeHandler(storage))
 	fmt.Println("[-] Booting on ", port)
@@ -36,6 +36,7 @@ func storeHandler(storage Persister) http.HandlerFunc  {
 			return
 		}
 
+		log.Info(bodyMessage.Data)
 		w.WriteHeader(http.StatusOK)
 	}
 }
