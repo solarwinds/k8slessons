@@ -26,7 +26,7 @@ func storeHandler(storage Persister) http.HandlerFunc  {
 		err := decoder.Decode(&bodyMessage)
 		if err != nil {
 			log.Info(err)
-		    w.WriteHeader(http.StatusBadRequest)
+			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
 
