@@ -9,12 +9,25 @@ import (
 	"time"
 )
 
+func emitBootBanner(port string)  {
+	template := `
+ ____  _  _  _  _  ____    ____  ____  __  ____  ____ 
+(    \/ )( \( \/ )(  _ \  / ___)(_  _)/  \(  _ \(  __)
+ ) D () \/ (/ \/ \ ) _ (  \___ \  )( (  O ))   / ) _) 
+(____/\____/\_)(_/(____/  (____/ (__) \__/(__\_)(____)
+
+[-] Starting on %s
+
+`
+	fmt.Printf(template, port)
+}
+
 func main()  {
 	port := ":7575"
 	storage := NewRedisPersister("redis:6379")
 
 	http.Handle("/store", storeHandler(storage))
-	fmt.Println("[-] Booting on ", port)
+	emitBootBanner(port)
 	http.ListenAndServe(port, nil)
 }
 
@@ -67,5 +80,4 @@ func NewRedisPersister(c string) *RedisPersist {
 func (rp *RedisPersist) Put(m Message) error {
 	return rp.client.Set(fmt.Sprintf("%d", time.Now().UTC().UnixNano()), m.Data, 0).Err()
 }
-
 
