@@ -3,7 +3,7 @@ services:
   dumbstore:
     build: .
     ports:
-    - "7575:7575"
+    - "30001:7575"
     links:
     - redis
   redis:
