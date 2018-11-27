@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: redis
+  labels:
+    app: dumbstore
+spec:
+  selector:
+    app: dumbstore
+  ports:
+  - protocol: TCP
+    port: 6379
