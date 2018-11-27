@@ -11,5 +11,5 @@ spec:
     imagePullPolicy: Never  # ensure that it's pulled from local Docker registry
     env:
       - name: REDIS_HOST
-        value: "10.1.0.116:6379"
+        value: "10.1.0.122:6379"
 
