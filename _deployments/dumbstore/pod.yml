@@ -11,9 +11,5 @@ spec:
     imagePullPolicy: Never  # ensure that it's pulled from local Docker registry
     env:
       - name: REDIS_HOST
-        value: dumbstore-redis-master
-      - name: REDIS_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: dumbstore-redis
-            key: redis-password
+        value: "10.1.0.116:6379"
+

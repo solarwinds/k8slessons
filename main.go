@@ -32,14 +32,7 @@ func main()  {
 		log.Fatalln("App requires Redis host in env (REDIS_HOST)")
 	}
 
-	redisPass := os.Getenv("REDIS_PASSWORD")
-
-
-	if redisPass == "" {
-		log.Fatalln("App requires Redis password in env (REDIS_PASSWORD)")
-	}
-
-	storage := NewRedisPersister(redisHost, redisPass)
+	storage := NewRedisPersister(redisHost, "")
 
 	http.Handle("/store", storeHandler(storage))
 	emitBootBanner(port)
@@ -82,10 +75,6 @@ type RedisPersist struct{
 }
 
 func NewRedisPersister(c, p string) *RedisPersist {
-	password := os.Getenv("REDIS_PASSWORD")
-	if password == ""{
-		log.Fatalln("App requires Redis password in env (REDIS_PASSWORD)")
-	}
 	return &RedisPersist{
 		redis.NewClient(&redis.Options{
 			Addr:     c,
