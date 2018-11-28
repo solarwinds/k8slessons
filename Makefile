@@ -18,6 +18,9 @@ run:
 run_compose:
 	docker-compose up --build
 
+helm_install_redis:
+	helm install --name dumbstore-redis -f _deployments/redis/values.yml stable/redis
+
 docker_build:
 	docker build -t $(app_name):$(APP_TAG) .
 
