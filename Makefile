@@ -6,7 +6,7 @@ the_date := $(shell date +'%s')
 
 web_app_name := $(app_name)-web
 
-APP_TAG ?= "1.0.0"
+APP_TAG ?= "2.0.0"
 
 build:
 	@go build -i -o $(app_name)

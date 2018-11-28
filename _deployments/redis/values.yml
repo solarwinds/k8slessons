@@ -1,0 +1,6 @@
+#
+# Helm values
+#
+
+# referenced here: https://github.com/helm/charts/blob/master/stable/redis/templates/secret.yaml#L14
+password: dumbdumbred1s! # this wouldn't normally be in version control and can be added at runtime

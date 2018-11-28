@@ -17,8 +17,12 @@ spec:
     spec:
       containers:
       - name: dumbstore-web
-        image: "dumbstore:1.0.0"
-#        imagePullPolicy: Never # ensure that it's pulled from local Docker registry
+        image: "dumbstore:2.0.0"
         env:
           - name: REDIS_HOST
-            value: "redis:6379"
+            value: "dumbstore-redis-master:6379"
+          - name: REDIS_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: dumbstore-redis
+                key: redis-password
