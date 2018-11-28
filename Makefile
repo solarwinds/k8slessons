@@ -6,6 +6,8 @@ the_date := $(shell date +'%s')
 
 web_app_name := $(app_name)-web
 
+APP_TAG ?= "1.0.0"
+
 build:
 	@go build -i -o $(app_name)
 
@@ -17,7 +19,7 @@ run_compose:
 	docker-compose up --build
 
 docker_build:
-	docker build -t $(app_name) .
+	docker build -t $(app_name):$(APP_TAG) .
 
 bounce_web_app: docker_build
 	kubectl patch deployment $(web_app_name) -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"date\":\"$(the_date)\"}}}}}"
