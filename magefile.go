@@ -29,10 +29,6 @@ func HelmInstallRedis() error {
 	return sh.RunV("helm", "install", "--name", "dumbstore-redis", "-f", "_deployments/redis/values.yml", "stable/redis")
 }
 
-func appName() string {
-	return "dumbstore"
-}
-
 func webAppName() string {
 	return fmt.Sprintf("%s-web", appName())
 }
