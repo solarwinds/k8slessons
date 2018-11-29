@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	CurrentVersion = "1.0.0"
+	CurrentVersion = "2.0.0"
 )
 
 // RunCompose runs the Docker compose file
