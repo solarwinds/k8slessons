@@ -40,3 +40,7 @@ func appTag() string {
 	}
 	return CurrentVersion
 }
+
+func appName() string {
+	return "dumbstore"
+}
