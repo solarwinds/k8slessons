@@ -6,7 +6,7 @@ metadata:
     app: dumbstore
 spec:
   selector:
-    app: dumbstore
+    component: redis
   ports:
   - protocol: TCP
     port: 6379
