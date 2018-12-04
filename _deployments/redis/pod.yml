@@ -4,6 +4,7 @@ metadata:
   name: redis
   labels:
     app: dumbstore
+    component: redis
 spec:
   containers:
   - name: redis
