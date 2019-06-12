@@ -34,9 +34,16 @@ func main()  {
 
 	redisPass := os.Getenv("REDIS_PASSWORD")
 
-	if redisPass == ""{
+	if redisPass == "" {
 		log.Fatalln("App requires Redis password in env (REDIS_PASSWORD)")
 	}
+
+	logLevel := os.Getenv("LOG_LEVEL")
+
+	if logLevel == "verbose" {
+		log.SetLevel(log.DebugLevel)
+	}
+	log.Debug("DEBUG LOGS ENABLED; VERBOSITY ENGAGED")
 
 	storage := NewRedisPersister(redisHost, redisPass)
 

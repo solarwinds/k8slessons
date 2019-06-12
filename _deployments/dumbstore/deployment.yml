@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: dumbstore-web
-        image: "dumbstore:2.0.0"
+        image: "dumbstore:2.0.1"
         env:
           - name: REDIS_HOST
             value: "dumbstore-redis-master:6379"
@@ -26,3 +26,8 @@ spec:
               secretKeyRef:
                 name: dumbstore-redis
                 key: redis-password
+          - name: LOG_LEVEL
+            valueFrom:
+              secretKeyRef:
+                name: log-config
+                key: log-level
