@@ -7,8 +7,7 @@ metadata:
 spec:
   containers:
   - name: dumbstore-web
-    image: dumbstore
-    imagePullPolicy: Never  # ensure that it's pulled from local Docker registry
+    image: deedubs/trevors-k8s-lesson
     env:
       - name: REDIS_HOST
         value: "redis:6379"
