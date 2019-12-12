@@ -7,14 +7,35 @@ import (
 	log "github.com/sirupsen/logrus"
 	"fmt"
 	"time"
+	"os"
 )
+
+func emitBootBanner(port string)  {
+	template := `
+ ____  _  _  _  _  ____    ____  ____  __  ____  ____ 
+(    \/ )( \( \/ )(  _ \  / ___)(_  _)/  \(  _ \(  __)
+ ) D () \/ (/ \/ \ ) _ (  \___ \  )( (  O ))   / ) _) 
+(____/\____/\_)(_/(____/  (____/ (__) \__/(__\_)(____)
+
+[-] Starting on %s
+
+`
+	fmt.Printf(template, port)
+}
 
 func main()  {
 	port := ":7575"
-	storage := NewRedisPersister("localhost:6379")
+
+	redisHost := os.Getenv("REDIS_HOST")
+
+	if redisHost == "" {
+		log.Fatalln("App requires Redis host in env (REDIS_HOST)")
+	}
+
+	storage := NewRedisPersister(redisHost, "")
 
 	http.Handle("/store", storeHandler(storage))
-	fmt.Println("[-] Booting on ", port)
+	emitBootBanner(port)
 	http.ListenAndServe(port, nil)
 }
 
@@ -26,7 +47,7 @@ func storeHandler(storage Persister) http.HandlerFunc  {
 		err := decoder.Decode(&bodyMessage)
 		if err != nil {
 			log.Info(err)
-		    w.WriteHeader(http.StatusBadRequest)
+			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
 
@@ -36,6 +57,7 @@ func storeHandler(storage Persister) http.HandlerFunc  {
 			return
 		}
 
+		log.Info(bodyMessage.Data)
 		w.WriteHeader(http.StatusOK)
 	}
 }
@@ -52,11 +74,11 @@ type RedisPersist struct{
 	client *redis.Client
 }
 
-func NewRedisPersister(c string) *RedisPersist {
+func NewRedisPersister(c, p string) *RedisPersist {
 	return &RedisPersist{
 		redis.NewClient(&redis.Options{
 			Addr:     c,
-			Password: "", // no password set
+			Password: p,
 			DB:       0,  // use default DB
 	}),
 	}
@@ -66,5 +88,4 @@ func NewRedisPersister(c string) *RedisPersist {
 func (rp *RedisPersist) Put(m Message) error {
 	return rp.client.Set(fmt.Sprintf("%d", time.Now().UTC().UnixNano()), m.Data, 0).Err()
 }
-
 

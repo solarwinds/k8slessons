@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dumbstore-web
+  labels:
+    app: dumbstore
+spec:
+  containers:
+  - name: dumbstore-web
+    image: deedubs/trevors-k8s-lesson
+    env:
+      - name: REDIS_HOST
+        value: "10.1.0.122:6379"
+

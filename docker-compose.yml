@@ -1,0 +1,10 @@
+version: '3'
+services:
+  dumbstore:
+    build: .
+    ports:
+    - "30001:7575"
+    links:
+    - redis
+  redis:
+    image: redis
