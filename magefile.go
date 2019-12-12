@@ -20,7 +20,7 @@ func RunCompose() error {
 
 // DockerBuild builds the container image from the Dockerfile
 func DockerBuild() error {
-	nameAndTag := fmt.Sprintf("%s:%s", appName(), appTag())
+	nameAndTag := fmt.Sprintf("docker.pkg.github.com/solarwinds/k8slessons/%s:%s", appName(), appTag())
 	return sh.RunV("docker", "build", "-t", nameAndTag, ".")
 }
 
